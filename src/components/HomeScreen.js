@@ -5,6 +5,8 @@ function HomeScreen() {
   //USING USESTATE HOOKS TO SET THE VALUE OF SEARCH QUERY
   const [query, setQuery] = useState("");
 
+  const [searchedQuery, setSearchedQuery] = useState("");
+
   //USING USESTATE HOOKS TO SET THE RESULT OF FETCHED DATA
   const [movieData, setMovieData] = useState([]);
 
@@ -22,7 +24,7 @@ function HomeScreen() {
   //GETTING TOTAL RESULTS FROM THE API
   const [totalResults, setTotalResults] = useState(0);
 
-  const [searchedQuery, setSearchedQuery] = useState("");
+  const [loading, setLoading] = useState(false);
 
   //CALCULATING NUMBER OF PAGES USING TOTAL RESULTS
   const pages =
@@ -34,12 +36,14 @@ function HomeScreen() {
   //SEARCH FUNCTION
 
   const search = (e) => {
+    setLoading(true);
     //FETCHING THE DATA FROM API
     axios
       .get(`https://www.omdbapi.com/?s=${query}&apikey=${API_KEY}&page=${page}`) //API URL
       .then((response) => {
         if (response.data.Response === "True") {
           setResponse(true);
+          setLoading(false);
           setMovieData(response.data.Search); //ASSIGNING THE DATA OF THE RESPONSE TO MovieData
           query !== searchedQuery && setPage(1); //RESETTING THE PAGE TO 1 IF THE SEARCH QUERY CHANGES
           setTotalResults(response.data.totalResults); //ASSIGNING THE VALUE OF TOTAL RESULT RESPONSE
@@ -71,10 +75,14 @@ function HomeScreen() {
   //GET DETAILS OF A SPECIFIC MOVIE
 
   const viewDetails = (id) => {
+    setLoading(true);
     setMovieInfo([]); //RESETTING PREVIOUSLY FETCHED INFO
     axios
       .get(`https://www.omdbapi.com/?i=${id}&apikey=${API_KEY}&plot=full`) //API URL
-      .then((response) => setMovieInfo(response.data)) //ASSIGNING THE DATA OF THE RESPONSE TO movieInfo
+      .then((response) => {
+        setMovieInfo(response.data); //ASSIGNING THE DATA OF THE RESPONSE TO movieInfo
+        setLoading(false);
+      })
       .catch((error) => setMovieInfo(error)); //CATCHING ANY ERROR IF IT OCCURS
 
     setShowDetails(!showDetails);
@@ -105,7 +113,7 @@ function HomeScreen() {
         </div>
       )}
       {response && !showDetails && (
-        <div>
+        <div style={{ paddingLeft: "50px" }}>
           Search Result for{" "}
           <span style={{ fontWeight: "bold", fontStyle: "italic" }}>
             {searchedQuery}
@@ -113,13 +121,23 @@ function HomeScreen() {
         </div>
       )}
 
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        {loading && searchedQuery !== "" && <p>Loading...</p>}
+      </div>
+
       {/* CARDS SECTION */}
 
       {!response && !showDetails && searchedQuery !== "" && (
-        <div>No Results Found</div>
+        <div style={{ paddingLeft: "50px" }}>No Results Found</div>
       )}
 
-      {!showDetails && response && (
+      {!showDetails && response && !loading && (
         <>
           <div className="cards-wrapper">
             {response &&
@@ -195,7 +213,7 @@ function HomeScreen() {
           alignItems: "center",
         }}
       >
-        {showDetails && (
+        {showDetails && !loading && (
           <div className="details-card-wrapper">
             <div style={{ display: "flex", justifyContent: "flex-end" }}>
               <button
@@ -217,7 +235,15 @@ function HomeScreen() {
               >
                 <img
                   className="detail-image"
-                  src={movieInfo.Poster}
+                  style={{
+                    width: movieInfo.Poster === "N/A" && "300px",
+                    height: movieInfo.Poster === "N/A" && "445px",
+                  }}
+                  src={
+                    movieInfo.Poster !== "N/A" //CHECKING WHEATHER THE MOVIE HAS POSTER IF NOT SETTING NOT AVAILABLE IMAGE
+                      ? movieInfo.Poster
+                      : "assets/images/not-available-placeholder.png"
+                  }
                   alt="movie-poster"
                 />
               </div>

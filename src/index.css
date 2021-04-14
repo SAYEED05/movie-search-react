@@ -96,6 +96,10 @@ body {
   margin-right: 10px;
 }
 
+.pagination-button:hover {
+  border: 1px solid rgb(156, 155, 155);
+}
+
 .pagination-button:focus {
   outline: none;
 }
@@ -128,8 +132,14 @@ body {
 
 /* RESPONSIVITY */
 
+@media screen and (max-width: 992px) {
+  .card-inner-wrapper {
+    width: 33%;
+  }
+}
+
 /* FOR TABLET SCREEN */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 800px) {
   .card-inner-wrapper {
     width: 50%;
     display: flex;
