@@ -36,7 +36,7 @@ function HomeScreen() {
   const search = (e) => {
     //FETCHING THE DATA FROM API
     axios
-      .get(`http://www.omdbapi.com/?s=${query}&apikey=${API_KEY}&page=${page}`) //API URL
+      .get(`https://www.omdbapi.com/?s=${query}&apikey=${API_KEY}&page=${page}`) //API URL
       .then((response) => {
         if (response.data.Response === "True") {
           setResponse(true);
@@ -73,7 +73,7 @@ function HomeScreen() {
   const viewDetails = (id) => {
     setMovieInfo([]); //RESETTING PREVIOUSLY FETCHED INFO
     axios
-      .get(`http://www.omdbapi.com/?i=${id}&apikey=${API_KEY}&plot=full`) //API URL
+      .get(`https://www.omdbapi.com/?i=${id}&apikey=${API_KEY}&plot=full`) //API URL
       .then((response) => setMovieInfo(response.data)) //ASSIGNING THE DATA OF THE RESPONSE TO movieInfo
       .catch((error) => setMovieInfo(error)); //CATCHING ANY ERROR IF IT OCCURS
 
