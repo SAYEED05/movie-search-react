@@ -47,13 +47,14 @@ function HomeScreen() {
           setMovieData(response.data.Search); //ASSIGNING THE DATA OF THE RESPONSE TO MovieData
           query !== searchedQuery && setPage(1); //RESETTING THE PAGE TO 1 IF THE SEARCH QUERY CHANGES
           setTotalResults(response.data.totalResults); //ASSIGNING THE VALUE OF TOTAL RESULT RESPONSE
-          setSearchedQuery(query);
         } else {
           setResponse(false);
           setPage(1); //resetting page number
+          setLoading(false);
         }
       })
       .catch((error) => console.log(error)); //CATCHING ANY ERROR IF IT OCCURS
+    setSearchedQuery(query);
   };
 
   //USE EFFECT HOOK TO RERENDER THE DOM IF THE PAGE IS CHANGED
