@@ -77,6 +77,19 @@ body {
     0px 6px 30px rgba(0, 0, 0, 0.12), 0px 8px 10px rgba(0, 0, 0, 0.2);
 }
 
+.card-image {
+  width: 260px;
+  height: 386px;
+  border-radius: 4px 4px 0 0;
+}
+
+.card-details {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  width: 260px;
+}
+
 /* PAGINATION SECTION STYLING */
 
 .pagination {
@@ -161,10 +174,30 @@ body {
 /* FOR MOBILE SCREEN */
 @media screen and (max-width: 480px) {
   .card-inner-wrapper {
-    width: 100%;
+    width: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 10px 0;
+  }
+
+  .card-contents {
+    max-width: 150px;
+    max-height: 300px;
+    margin: 0;
+  }
+
+  .card-details {
+    width: 150px;
+    height: 100px;
+  }
+  .card-title,
+  .card-year {
+    font-size: 12px;
+  }
+  .card-image {
+    width: 150px;
+    height: 220px;
   }
 
   .details-card-wrapper {

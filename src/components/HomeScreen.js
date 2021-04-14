@@ -153,11 +153,7 @@ function HomeScreen() {
                     style={{ whiteSpace: "break-spaces", textAlign: "left" }}
                   >
                     <img
-                      style={{
-                        width: "260px",
-                        height: "386px",
-                        borderRadius: "4px 4px 0 0",
-                      }}
+                      className="card-image"
                       src={
                         movie.Poster !== "N/A" //CHECKING WHEATHER THE MOVIE HAS POSTER IF NOT SETTING NOT AVAILABLE IMAGE
                           ? movie.Poster
@@ -165,21 +161,14 @@ function HomeScreen() {
                       }
                       alt="movie-poster"
                     />
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        padding: "10px 0",
-                        width: "260px",
-                      }}
-                    >
-                      <p className="title" style={{ fontWeight: "bold" }}>
+                    <div style={{}} className="card-details">
+                      <p className="card-title" style={{ fontWeight: "bold" }}>
                         {movie.Title}
                         <span style={{ fontWeight: "200" }}>
                           ({movie.Type})
                         </span>
                       </p>
-                      <p className="year" style={{ color: "#1f80e0" }}>
+                      <p className="card-year" style={{ color: "#1f80e0" }}>
                         {movie.Year}
                       </p>
                     </div>
