@@ -13,8 +13,14 @@ React.js
 axios,
 React-router-dom.
 
-## To Run
+## To Run:
 
 1.install the dependencies using npm install
+
 2.npm start to start the server
+
 3.you can view the application in https://localhost:3000/
+
+## Live App:
+
+https://movie-search-webapp.herokuapp.com/
